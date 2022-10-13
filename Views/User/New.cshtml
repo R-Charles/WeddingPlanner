@@ -1,0 +1,43 @@
+
+@model Wedding
+
+<div class="container w-75 mx-auto>
+    <h2 class="text-center">Plan Your Wedding</h2>
+    <div>
+        <form asp-controller="User" asp-action="All" Method="POST">
+            <button>Dashboard</button>
+        </form>
+    </div>
+    <div>
+        <form asp-controller="User" asp-action="Logout" Method="POST">
+            <button>Logout</button>
+        </form>
+    </div>
+
+    <form class="shadow p-3 rounded" asp-controller="User" asp-action="Create" method="POST">
+
+        <div class="mb-3">
+            <label asp-for="WedderOne" ></label>
+            <span asp-validation-for="WedderOne"></span>        @*this will display error message*@
+            <input id="name" type="text" asp-for="WedderOne">
+        </div>
+        <div class="mb-3">
+            <label asp-for="WedderTwo" ></label>
+            <span asp-validation-for="WedderTwo"></span>        @*this will display error message*@
+            <input id="name" type="text" asp-for="WedderTwo">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Date" ></label>
+            <span asp-validation-for="Date"></span>        @*this will display error message*@
+            <input id="name" type="text" asp-for="Date">
+        </div>
+        <div class="mb-3">
+            <label asp-for="WeddingAddress" ></label>
+            <span asp-validation-for="WeddingAddress"></span>        @*this will display error message*@
+            <input id="name" type="text" asp-for="WeddingAddress">
+        </div>
+
+
+        <button type="submit">Create</button>
+    </form>
+</div>

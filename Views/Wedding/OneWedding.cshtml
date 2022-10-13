@@ -1,0 +1,30 @@
+@model Wedding
+
+<h1>@Model.WedderOne & @Model.WedderTwo 's Wedding</h1>
+
+<div>
+    <form action="/weddings">
+        <button>Dashboard</button>
+    </form>
+</div>
+
+<div>
+    <form asp-controller="User" asp-action="Logout" Method="POST">
+        <button>Logout</button>
+    </form>
+</div>
+
+@if (Model.WeddingCreator != null)
+{
+    <h3>Created By: @Model.WeddingCreator.FirstName</h3>
+}
+
+<p>Date: @Model.Date</p>
+
+<div>
+    <p>Guests: </p>
+    @foreach (Association a in Model.WeddingAssociation)
+    {
+        <p>@a.User.FirstName</p>
+    }
+</div>

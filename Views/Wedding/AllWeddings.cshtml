@@ -1,0 +1,69 @@
+@model List<Wedding>
+
+<h1> Welcome to the Wedding Planner</h1>
+<div>
+    <form asp-controller="User" asp-action="Logout" Method="POST">
+        <button>Logout</button>
+    </form>
+</div>
+
+@*  Gets userid if needed *@
+@* <h3>Welcome UUID: @Context.Session.GetInt32("UUID")</h3> *@
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Wedding</th>
+            <th>Date</th>
+            <th>Guest</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Wedding w in Model)
+        {
+            @if (w.WeddingCreator != null)
+            {
+                <tr>
+                        <td>
+                            <a asp-controller="Wedding" asp-action="OneWedding" asp-route-weddingId="@w.WeddingId">@w.WedderOne &  @w.WedderTwo</a>
+                        </td>
+                        <td>@w.Date</td>
+                        <td>
+                            @w.WeddingAssociation.Count
+                        </td>
+                        <td>
+                            @if (w.UserId == Context.Session.GetInt32("uuid"))
+                            {
+                                <form asp-controller="Wedding" asp-action="DeleteWedding" asp-route-weddingId="@w.WeddingId"><button>Delete</button></form>
+                            }
+                            else
+                            {
+                                bool alreadyJoined = w.WeddingAssociation.Any(participant => participant.UserId == Context.Session.GetInt32("uuid"));
+
+                                <form asp-controller="Wedding" asp-action="Participate" asp-route-weddingId="@w.WeddingId">
+                                    <button>
+                                        @if (alreadyJoined)
+                                        {
+                                            <span>Un-RSVP</span>
+                                        }
+                                        else
+                                        {
+                                            <span>RSVP</span>
+                                        }
+                                    </button>
+                                </form>
+                            }
+                        </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+<form action="/weddings/new">
+    <button>New Wedding</button>
+</form>
